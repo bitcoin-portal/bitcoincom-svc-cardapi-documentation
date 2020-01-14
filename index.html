@@ -234,10 +234,22 @@
                     <a href="#get-all-users" class="toc-h2 toc-link" data-title="Get All Users">Get All Users</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-user" class="toc-h2 toc-link" data-title="Get a Specific User">Get a Specific User</a>
+                    <a href="#get-a-specific-user-with-id" class="toc-h2 toc-link" data-title="Get a Specific User with ID">Get a Specific User with ID</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#get-a-specific-user-with-email" class="toc-h2 toc-link" data-title="Get a Specific User with Email">Get a Specific User with Email</a>
+                  </li>
+                  <li>
+                    <a href="#create-user" class="toc-h2 toc-link" data-title="Create User">Create User</a>
+                  </li>
+                  <li>
+                    <a href="#update-user" class="toc-h2 toc-link" data-title="Update User">Update User</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-specific-user" class="toc-h2 toc-link" data-title="Delete a Specific User">Delete a Specific User</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-user-39-s-virtual-card" class="toc-h2 toc-link" data-title="Get a User's Virtual Card">Get a User's Virtual Card</a>
                   </li>
               </ul>
           </li>
@@ -253,7 +265,8 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='bitcoin-card-api-documentation'>Bitcoin Card API Documentation</h1><h1 id='introduction'>Introduction</h1>
+        <p><img src="images/logo-d19f5e29.png" alt="Bitcoin.com"></p>
+<h1 id='bitcoin-card-api-documentation'>Bitcoin Card API Documentation</h1><h1 id='introduction'>Introduction</h1>
 <p>This is documentation for Bitcoin Card API, REST based API service, which provides various endpoints to Bitcoin.com front end applications. The API allows authorized applications to get user data, create users, their wallet information, card information and various other card user related data. The data provided by the API comes from PostgreSQL compatible database, run on Amazon Web Service, and from card provider APIs (Ternio API and Prysym API). </p>
 
 <p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
@@ -261,7 +274,7 @@
 <p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
 <h1 id='authentication'>Authentication</h1>
 <p>All communication with Card API is done over HTTPS protocol. We provide user with the certificate after which user can connect to the API. </p>
-<h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
+<h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -269,17 +282,9 @@
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -290,7 +295,7 @@
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
 </aside>
-<h2 id='get-a-specific-user'>Get a Specific User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/1<span class="sb">`</span>
+<h2 id='get-a-specific-user-with-id'>Get a Specific User with ID</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/1<span class="sb">`</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -316,9 +321,13 @@ If succesfull, HTTP code 200 will be returned
    </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves a specific user.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="success">
+If succesfull, HTTP code 200 will be returned
+</aside>
+
+<aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -330,36 +339,44 @@ If succesfull, HTTP code 200 will be returned
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>The ID of the user to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<h2 id='get-a-specific-user-with-email'>Get a Specific User with Email</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user-email/<span class="s1">'md@yahoo.com'</span><span class="sb">`</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+   </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"firstName"</span><span class="p">:</span><span class="s2">"Mehmed"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"lastName"</span><span class="p">:</span><span class="s2">"XXX"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2019-12-16T23:03:41.121+0000"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="s2">"2020-01-03T15:56:10.302+0000"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"md@yahoo.com"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="s2">"(997) 334-2323"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"dateOfBirth"</span><span class="p">:</span><span class="s2">"99/99/9999"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"gender"</span><span class="p">:</span><span class="s2">"M"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"promotioanlConsent"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"addresStreet"</span><span class="p">:</span><span class="s2">"2208 Flat Branch"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"addressCity"</span><span class="p">:</span><span class="s2">"Richmond"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"addressPostalCode"</span><span class="p">:</span><span class="s2">"23233"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"addressState"</span><span class="p">:</span><span class="s2">"Va"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"addressCountry"</span><span class="p">:</span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"defaultCurrencyId"</span><span class="p">:</span><span class="s2">"BCH"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"socialSecurityNumber"</span><span class="p">:</span><span class="s2">"888-00-8888"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
+<p>This endpoint retrieves a specific user.</p>
+
+<aside class="success">
+If succesfull, HTTP code 200 will be returned
+</aside>
+
+<aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -368,8 +385,233 @@ If succesfull, HTTP code 200 will be returned
 </tr>
 </thead><tbody>
 <tr>
+<td>email</td>
+<td>The email of the user to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='create-user'>Create User</h2><pre class="highlight shell tab-shell"><code><span class="s1">'curl -v -X POST https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users \
+   -H "Content-type:application/json" -d \
+   "{\"firstName\":\"Joe\", \
+   \"lastName\":\"Doe\", \
+   \"email\":\"md@yahoo.com\", \
+   \"phoneNumber\":\"941-667-2323\", \
+   \"dateOfBirth\":\"04/24/1987\", \
+   \"gender\":\"M\", \
+   \"isActive\":\"true\", \
+   \"promotionalConsent\":\"true\", \
+   \"addresStreet\":\"1122 Ridgefield Dr.\", \
+   \"addressCity\":\"Venice\", \
+   \"addressPostalCode\":\"34210\", \
+   \"addressState\":\"Ohio\", \
+   \"addressCountry\":\"US\", \
+   \"defaultCurrencyId\":\"BCH\", \
+   \"socialSecurityNumber\":\"223-23-2323\" \
+   }"'</span>
+</code></pre>
+<p>This endpoint retrieves a specific user.</p>
+
+<aside class="success">
+If succesfull, HTTP code 200 will be returned
+</aside>
+
+<aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>The first name of the user</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>The last name of the user</td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email of the user</td>
+</tr>
+<tr>
+<td>phoneNumber</td>
+<td>The phone number of the user</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>The date of birth of the user</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>The gender of the user</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>Active or not?</td>
+</tr>
+<tr>
+<td>promotionalConsent</td>
+<td>User allows promotional material</td>
+</tr>
+<tr>
+<td>addressStreet</td>
+<td>The street address of the user</td>
+</tr>
+<tr>
+<td>addressCity</td>
+<td>The city of the user</td>
+</tr>
+<tr>
+<td>addressPostalCode</td>
+<td>The postal code of the user</td>
+</tr>
+<tr>
+<td>addressState</td>
+<td>The state of the user</td>
+</tr>
+<tr>
+<td>addressCountry</td>
+<td>The country of the user</td>
+</tr>
+<tr>
+<td>defaultCurrencyId</td>
+<td>The currency type of the user</td>
+</tr>
+<tr>
+<td>socialSecurityNumber</td>
+<td>The SSN of the user</td>
+</tr>
+</tbody></table>
+<h2 id='update-user'>Update User</h2><pre class="highlight shell tab-shell"><code>curl -v -X PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user <span class="se">\</span>
+   -H <span class="s2">"Content-type:application/json"</span> -d <span class="se">\</span>
+   <span class="s2">"{ </span><span class="se">\</span><span class="s2">
+      </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">4</span><span class="se">\"</span><span class="s2">, </span><span class="se">\</span><span class="s2">
+      </span><span class="se">\"</span><span class="s2">socialSecurityNumber</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">888-00-8888</span><span class="se">\"</span><span class="s2">, </span><span class="se">\</span><span class="s2">
+      </span><span class="se">\"</span><span class="s2">email</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">zzz@yahoo.com</span><span class="se">\"</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+    }"</span>
+</code></pre>
+<p>This endpoint retrieves a specific user.</p>
+
+<aside class="success">
+If succesfull, HTTP code 200 will be returned
+</aside>
+
+<aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<p>Any of the available parameters can be sent for updating.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>The first name of the user</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>The last name of the user</td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email of the user</td>
+</tr>
+<tr>
+<td>phoneNumber</td>
+<td>The phone number of the user</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>The date of birth of the user</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>The gender of the user</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>Active or not?</td>
+</tr>
+<tr>
+<td>promotionalConsent</td>
+<td>User allows promotional material</td>
+</tr>
+<tr>
+<td>addressStreet</td>
+<td>The street address of the user</td>
+</tr>
+<tr>
+<td>addressCity</td>
+<td>The city of the user</td>
+</tr>
+<tr>
+<td>addressPostalCode</td>
+<td>The postal code of the user</td>
+</tr>
+<tr>
+<td>addressState</td>
+<td>The state of the user</td>
+</tr>
+<tr>
+<td>addressCountry</td>
+<td>The country of the user</td>
+</tr>
+<tr>
+<td>defaultCurrencyId</td>
+<td>The currency type of the user</td>
+</tr>
+<tr>
+<td>socialSecurityNumber</td>
+<td>The SSN of the user</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-specific-user'>Delete a Specific User</h2><pre class="highlight shell tab-shell"><code>curl -v -X DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/5 
+</code></pre>
+<p>This endpoint deletes a specific user.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
 <td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>The ID of the user to delete</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-user-39-s-virtual-card'>Get a User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/1/virtual-card<span class="sb">`</span>
+</code></pre>
+<p>This endpoint retrieves a specific user&#39;s virtual card, such as this: </p>
+
+<p><img src="images/virtual-card.jfif" alt="Virtual Card"></p>
+
+<aside class="success">
+If succesfull, HTTP code 200 will be returned
+</aside>
+
+<aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;/virtual-card</code></p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the user to retrieve</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
