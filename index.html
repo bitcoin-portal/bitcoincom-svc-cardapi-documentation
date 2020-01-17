@@ -234,10 +234,7 @@
                     <a href="#get-all-users" class="toc-h2 toc-link" data-title="Get All Users">Get All Users</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-user-with-id" class="toc-h2 toc-link" data-title="Get a Specific User with ID">Get a Specific User with ID</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-user-with-email" class="toc-h2 toc-link" data-title="Get a Specific User with Email">Get a Specific User with Email</a>
+                    <a href="#get-a-specific-user" class="toc-h2 toc-link" data-title="Get a Specific User">Get a Specific User</a>
                   </li>
                   <li>
                     <a href="#create-user" class="toc-h2 toc-link" data-title="Create User">Create User</a>
@@ -249,7 +246,7 @@
                     <a href="#delete-a-specific-user" class="toc-h2 toc-link" data-title="Delete a Specific User">Delete a Specific User</a>
                   </li>
                   <li>
-                    <a href="#get-a-user-39-s-virtual-card" class="toc-h2 toc-link" data-title="Get a User's Virtual Card">Get a User's Virtual Card</a>
+                    <a href="#get-user-39-s-virtual-card" class="toc-h2 toc-link" data-title="Get User's Virtual Card">Get User's Virtual Card</a>
                   </li>
               </ul>
           </li>
@@ -294,7 +291,7 @@
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
 </aside>
-<h2 id='get-a-specific-user-with-id'>Get a Specific User with ID</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/1<span class="sb">`</span>
+<h2 id='get-a-specific-user'>Get a Specific User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/search?username<span class="o">=</span>mduric<span class="sb">`</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -317,7 +314,8 @@ If succesfull, HTTP code 200 will be returned
    </span><span class="s2">"addressCountry"</span><span class="p">:</span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"defaultCurrencyId"</span><span class="p">:</span><span class="s2">"BCH"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"socialSecurityNumber"</span><span class="p">:</span><span class="s2">"888-00-8888"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+   </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+   </span><span class="s2">"username"</span><span class="p">:</span><span class="s2">"mduric"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves a specific user.</p>
@@ -328,7 +326,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/search?username=mduric</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -337,57 +335,16 @@ If succesfull, HTTP code 200 will be returned
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the user to retrieve</td>
+<td>username</td>
+<td>Optional parameter, user name of the user to retrieve</td>
 </tr>
-</tbody></table>
-<h2 id='get-a-specific-user-with-email'>Get a Specific User with Email</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user-email/<span class="s1">'md@yahoo.com'</span><span class="sb">`</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"firstName"</span><span class="p">:</span><span class="s2">"Mehmed"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"lastName"</span><span class="p">:</span><span class="s2">"XXX"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="s2">"2019-12-16T23:03:41.121+0000"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="s2">"2020-01-03T15:56:10.302+0000"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"md@yahoo.com"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="s2">"(997) 334-2323"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"dateOfBirth"</span><span class="p">:</span><span class="s2">"99/99/9999"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"gender"</span><span class="p">:</span><span class="s2">"M"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"promotioanlConsent"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"addresStreet"</span><span class="p">:</span><span class="s2">"2208 Flat Branch"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"addressCity"</span><span class="p">:</span><span class="s2">"Richmond"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"addressPostalCode"</span><span class="p">:</span><span class="s2">"23233"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"addressState"</span><span class="p">:</span><span class="s2">"Va"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"addressCountry"</span><span class="p">:</span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"defaultCurrencyId"</span><span class="p">:</span><span class="s2">"BCH"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"socialSecurityNumber"</span><span class="p">:</span><span class="s2">"888-00-8888"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific user.</p>
-
-<aside class="success">
-If succesfull, HTTP code 200 will be returned
-</aside>
-
-<aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user-email/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
 <tr>
 <td>email</td>
-<td>The email of the user to retrieve</td>
+<td>Optional parameter, email of the user to retrieve</td>
 </tr>
 </tbody></table>
+
+<p>Both parameters are optional, but one of them has to be passed in order to retrieve valid user. </p>
 <h2 id='create-user'>Create User</h2><pre class="highlight shell tab-shell"><code><span class="s1">'curl -v -X POST https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users \
    -H "Content-type:application/json" -d \
    "{\"firstName\":\"Joe\", \
@@ -405,6 +362,7 @@ If succesfull, HTTP code 200 will be returned
    \"addressCountry\":\"US\", \
    \"defaultCurrencyId\":\"BCH\", \
    \"socialSecurityNumber\":\"223-23-2323\" \
+   \"userName\":\"mduric\" \
    }"'</span>
 </code></pre>
 <p>This endpoint retrieves a specific user.</p>
@@ -414,9 +372,9 @@ If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -483,8 +441,12 @@ If succesfull, HTTP code 200 will be returned
 <td>socialSecurityNumber</td>
 <td>The SSN of the user</td>
 </tr>
+<tr>
+<td>userName</td>
+<td>The user name of the user</td>
+</tr>
 </tbody></table>
-<h2 id='update-user'>Update User</h2><pre class="highlight shell tab-shell"><code>curl -v -X PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user <span class="se">\</span>
+<h2 id='update-user'>Update User</h2><pre class="highlight shell tab-shell"><code>curl -v -X PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users <span class="se">\</span>
    -H <span class="s2">"Content-type:application/json"</span> -d <span class="se">\</span>
    <span class="s2">"{ </span><span class="se">\</span><span class="s2">
       </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">4</span><span class="se">\"</span><span class="s2">, </span><span class="se">\</span><span class="s2">
@@ -499,9 +461,9 @@ If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
-<h3 id='http-request-5'>HTTP Request</h3>
-<p><code>PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
 <p>Any of the available parameters can be sent for updating.</p>
 
 <table><thead>
@@ -570,13 +532,17 @@ If succesfull, HTTP code 200 will be returned
 <td>socialSecurityNumber</td>
 <td>The SSN of the user</td>
 </tr>
+<tr>
+<td>userName</td>
+<td>The user name of the user</td>
+</tr>
 </tbody></table>
-<h2 id='delete-a-specific-user'>Delete a Specific User</h2><pre class="highlight shell tab-shell"><code>curl -v -X DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/5 
+<h2 id='delete-a-specific-user'>Delete a Specific User</h2><pre class="highlight shell tab-shell"><code>curl -v -X DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/5 
 </code></pre>
 <p>This endpoint deletes a specific user.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
-<p><code>DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-5'>URL Parameters</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -588,7 +554,7 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to delete</td>
 </tr>
 </tbody></table>
-<h2 id='get-a-user-39-s-virtual-card'>Get a User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/1/virtual-card<span class="sb">`</span>
+<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/1/virtual-card<span class="sb">`</span>
 </code></pre>
 <p>This endpoint retrieves a specific user&#39;s virtual card, such as this: </p>
 
@@ -599,9 +565,9 @@ If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
-<h3 id='http-request-7'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/user/&lt;ID&gt;/virtual-card</code></p>
-<h3 id='url-parameters-6'>URL Parameters</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/&lt;ID&gt;/virtual-card</code></p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -618,7 +584,7 @@ If succesfull, HTTP code 200 will be returned
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>The Card API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -636,15 +602,15 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The user requested is hidden for administrators only.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified user could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access user with an invalid method.</td>
 </tr>
 <tr>
 <td>406</td>
@@ -652,7 +618,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
+<td>Gone -- The user requested has been removed from our servers.</td>
 </tr>
 <tr>
 <td>418</td>
@@ -660,7 +626,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests</td>
 </tr>
 <tr>
 <td>500</td>
