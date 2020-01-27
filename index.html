@@ -248,6 +248,9 @@
                   <li>
                     <a href="#get-user-39-s-virtual-card" class="toc-h2 toc-link" data-title="Get User's Virtual Card">Get User's Virtual Card</a>
                   </li>
+                  <li>
+                    <a href="#get-user-transaction" class="toc-h2 toc-link" data-title="Get User Transaction">Get User Transaction</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -270,6 +273,9 @@
 <p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
 <h1 id='authentication'>Authentication</h1>
 <p>All communication with Card API is done over HTTPS protocol. We provide user with the certificate after which user can connect to the API. </p>
+
+<p>In order for any client to access Card API endpoints, valid access token has to be obtained from AWS Cognito. Token can be obtained for any user created in Cognito, however scope of the token has to have &#39;openid&#39; and &#39;profile&#39; in order to be parsed and verified by the Card API. 
+After decoding the token and doing in code validation, Cognito endpoint /oauth2/userInfo with the token for additional validation. If token is invalid, user has globally logged out, or token was never issued by Cognito, endpoint will not return user data and Card API will return 401 code and &#39;Unauthorized&#39; message.</p>
 <h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users"</span>
 </code></pre>
 <blockquote>
@@ -291,7 +297,7 @@
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
 </aside>
-<h2 id='get-a-specific-user'>Get a Specific User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/search?username<span class="o">=</span>mduric<span class="sb">`</span>
+<h2 id='get-a-specific-user'>Get a Specific User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/search?username<span class="o">=</span>mduric<span class="sb">`</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -365,7 +371,7 @@ If succesfull, HTTP code 200 will be returned
    \"userName\":\"mduric\" \
    }"'</span>
 </code></pre>
-<p>This endpoint retrieves a specific user.</p>
+<p>This endpoint creates new user.</p>
 
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
@@ -454,7 +460,7 @@ If succesfull, HTTP code 200 will be returned
       </span><span class="se">\"</span><span class="s2">email</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">zzz@yahoo.com</span><span class="se">\"</span><span class="s2"> </span><span class="se">\</span><span class="s2">
     }"</span>
 </code></pre>
-<p>This endpoint retrieves a specific user.</p>
+<p>This endpoint update a specific user information.</p>
 
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
@@ -579,6 +585,11 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to retrieve</td>
 </tr>
 </tbody></table>
+<h2 id='get-user-transaction'>Get User Transaction</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/transactions
+</code></pre>
+<p>This endpoint retrieves user. Currently it is getting data from card provider (Ternio) user ledger transactions, however, this will be expanded to card transactions too. Eventually, this endpoint will get transactions from both card providers and allow several types of transactions to be retrieved. </p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/users/transactions</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
