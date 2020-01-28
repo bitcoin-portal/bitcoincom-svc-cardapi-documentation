@@ -560,7 +560,7 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to delete</td>
 </tr>
 </tbody></table>
-<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/1/virtual-card<span class="sb">`</span>
+<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/1/virtual-card<span class="sb">`</span>
 </code></pre>
 <p>This endpoint retrieves a specific user&#39;s virtual card, such as this: </p>
 
@@ -572,7 +572,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-6'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/&lt;ID&gt;/virtual-card</code></p>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/&lt;ID&gt;/virtual-card</code></p>
 <h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -585,11 +585,11 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='get-user-transactions'>Get User Transactions</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/transactions
+<h2 id='get-user-transactions'>Get User Transactions</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/transactions
 </code></pre>
 <p>This endpoint retrieves user transactions. Currently it is getting data from card provider (Ternio) user ledger transactions, however, this will be expanded to card transactions too. Eventually, this endpoint will get transactions from both card providers and allow several types of transactions to be retrieved. </p>
 <h3 id='http-request-7'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/transactions</code></p>
+<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/transactions</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
