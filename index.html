@@ -228,6 +228,15 @@
             <a href="#quickstart" class="toc-h1 toc-link" data-title="Quickstart">Quickstart</a>
           </li>
           <li>
+            <a href="#environment" class="toc-h1 toc-link" data-title="Environment">Environment</a>
+          </li>
+          <li>
+            <a href="#building" class="toc-h1 toc-link" data-title="Building">Building</a>
+          </li>
+          <li>
+            <a href="#deployment" class="toc-h1 toc-link" data-title="Deployment">Deployment</a>
+          </li>
+          <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
@@ -290,6 +299,20 @@
 </ol>
 
 <p>Any application invoking Card API to setup new card user would only need to create user by invoking create user endpoint. All other steps would happen automatically within the API. The other endpoints below allow other applications to retrieve data related to created users. </p>
+<h1 id='environment'>Environment</h1>
+<p>The Card API is currently running on AWS EC2 instance. There is a load balancer connected to domain <b>https://card.api.bitcoin.com</b> which will be production end point. The two other endpoints <b>dev.card.api.bitcoin.com</b> and <b>qa.card.api.bitcoin.com</b> will be used for Dev/Staging environments. </p>
+<h1 id='building'>Building</h1>
+<p>The application is developed in Java/Kotlin programming language and it is using Maven build automation tool for building and deployments. It is also using Spring Framework (java framework for MVC architecture and REST APIs) as a base for all development. Spring Boot is used to run the application in local environment with command specified below. </p>
+
+<p>To build the application, execute following from command line in root application directory:</p>
+
+<p><b>mvn clean install</b></p>
+
+<p>To run the application in development environment, execute:</p>
+
+<p><b>mvn spring-boot:run</b></p>
+<h1 id='deployment'>Deployment</h1>
+<p>As part of new Bitcoin.com architecture application will be deployed using Docker image. More details to come. </p>
 <h1 id='authentication'>Authentication</h1>
 <p>All communication with Card API is done over HTTPS protocol. We provide user with the certificate after which user can connect to the API. </p>
 
