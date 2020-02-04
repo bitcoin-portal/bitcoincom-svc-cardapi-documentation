@@ -229,6 +229,11 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#header-parameters" class="toc-h2 toc-link" data-title="Header Parameters">Header Parameters</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
@@ -290,7 +295,21 @@
 
 <p>In order for any client to access Card API endpoints, valid access token has to be obtained from AWS Cognito. Token can be obtained for any user created in Cognito, however scope of the token has to have &#39;openid&#39; and &#39;profile&#39; in order to be parsed and verified by the Card API. 
 After decoding the token and doing in code validation, Cognito endpoint <b>/oauth2/userInfo</b> will be called with the token for additional validation. If token is invalid, user has globally logged out, or token was never issued by Cognito, endpoint will not return user data and Card API will return <b>401</b> code and <b>&#39;Unauthorized&#39;</b> message.</p>
-<h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users"</span>
+<h3 id='header-parameters'>Header Parameters</h3>
+<p>Any of the available parameters can be sent for updating.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>Used to pass token value in the format <b>Bearer <token value></b></td>
+</tr>
+</tbody></table>
+<h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://card.api.bitcoin.com/v1/users"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -306,12 +325,12 @@ After decoding the token and doing in code validation, Cognito endpoint <b>/oaut
 </span></code></pre>
 <p>COMING SOON - This endpoint retrieves all users.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/users</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
 </aside>
-<h2 id='get-a-specific-user'>Get a Specific User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/search?username<span class="o">=</span>mduric<span class="sb">`</span>
+<h2 id='get-a-specific-user'>Get a Specific User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X GET https://card.api.bitcoin.com/v1/users/search?username<span class="o">=</span>mduric<span class="sb">`</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -346,7 +365,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/search?username=mduric</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/users/search?username=mduric</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -365,7 +384,7 @@ If succesfull, HTTP code 200 will be returned
 </tbody></table>
 
 <p>Both parameters are optional, but one of them has to be passed in order to retrieve valid user. </p>
-<h2 id='create-user'>Create User</h2><pre class="highlight shell tab-shell"><code><span class="s1">'curl -v -X POST https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users \
+<h2 id='create-user'>Create User</h2><pre class="highlight shell tab-shell"><code><span class="s1">'curl -v -X POST https://card.api.bitcoin.com/v1/users \
    -H "Content-type:application/json" -d \
    "{\"firstName\":\"Joe\", \
    \"lastName\":\"Doe\", \
@@ -393,7 +412,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/users</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -466,7 +485,7 @@ If succesfull, HTTP code 200 will be returned
 <td>The user name of the user</td>
 </tr>
 </tbody></table>
-<h2 id='update-user'>Update User</h2><pre class="highlight shell tab-shell"><code>curl -v -X PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users <span class="se">\</span>
+<h2 id='update-user'>Update User</h2><pre class="highlight shell tab-shell"><code>curl -v -X PUT https://card.api.bitcoin.com/v1/users <span class="se">\</span>
    -H <span class="s2">"Content-type:application/json"</span> -d <span class="se">\</span>
    <span class="s2">"{ </span><span class="se">\</span><span class="s2">
       </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">4</span><span class="se">\"</span><span class="s2">, </span><span class="se">\</span><span class="s2">
@@ -482,7 +501,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>PUT https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users</code></p>
+<p><code>PUT https://card.api.bitcoin.com/v1/users</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <p>Any of the available parameters can be sent for updating.</p>
 
@@ -557,11 +576,11 @@ If succesfull, HTTP code 200 will be returned
 <td>The user name of the user</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-user'>Delete a Specific User</h2><pre class="highlight shell tab-shell"><code>curl -v -X DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/5 
+<h2 id='delete-a-specific-user'>Delete a Specific User</h2><pre class="highlight shell tab-shell"><code>curl -v -X DELETE https://card.api.bitcoin.com/v1/users/5 
 </code></pre>
 <p>This endpoint deletes a specific user.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>DELETE https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/users/&lt;ID&gt;</code></p>
+<p><code>DELETE https://card.api.bitcoin.com/v1/users/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -574,7 +593,7 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to delete</td>
 </tr>
 </tbody></table>
-<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/1/virtual-card<span class="sb">`</span>
+<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://card.api.bitcoin.com/v1/1/virtual-card<span class="sb">`</span>
 </code></pre>
 <p>This endpoint retrieves a specific user&#39;s virtual card, such as this: </p>
 
@@ -586,7 +605,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-6'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/&lt;ID&gt;/virtual-card</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/&lt;ID&gt;/virtual-card</code></p>
 <h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -599,11 +618,11 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='get-user-transactions'>Get User Transactions</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/transactions
+<h2 id='get-user-transactions'>Get User Transactions</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://card.api.bitcoin.com/v1/transactions
 </code></pre>
 <p>This endpoint retrieves user transactions. Currently it is getting data from card provider (Ternio) user ledger transactions, however, this will be expanded to card transactions too. Eventually, this endpoint will get transactions from both card providers and allow several types of transactions to be retrieved. </p>
 <h3 id='http-request-7'>HTTP Request</h3>
-<p><code>GET https://ec2-3-136-241-73.us-east-2.compute.amazonaws.com:8443/v1/transactions</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/transactions</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
