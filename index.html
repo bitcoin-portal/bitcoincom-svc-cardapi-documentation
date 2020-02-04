@@ -296,8 +296,6 @@
 <p>In order for any client to access Card API endpoints, valid access token has to be obtained from AWS Cognito. Token can be obtained for any user created in Cognito, however scope of the token has to have &#39;openid&#39; and &#39;profile&#39; in order to be parsed and verified by the Card API. 
 After decoding the token and doing in code validation, Cognito endpoint <b>/oauth2/userInfo</b> will be called with the token for additional validation. If token is invalid, user has globally logged out, or token was never issued by Cognito, endpoint will not return user data and Card API will return <b>401</b> code and <b>&#39;Unauthorized&#39;</b> message.</p>
 <h3 id='header-parameters'>Header Parameters</h3>
-<p>Any of the available parameters can be sent for updating.</p>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -306,7 +304,7 @@ After decoding the token and doing in code validation, Cognito endpoint <b>/oaut
 </thead><tbody>
 <tr>
 <td>Authorization</td>
-<td>Used to pass token value in the format <b>Bearer <token value></b></td>
+<td>Used to pass token value in the format <b>Bearer (token value)</b></td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://card.api.bitcoin.com/v1/users"</span>
