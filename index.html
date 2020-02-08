@@ -268,6 +268,12 @@
                   <li>
                     <a href="#get-user-transactions" class="toc-h2 toc-link" data-title="Get User Transactions">Get User Transactions</a>
                   </li>
+                  <li>
+                    <a href="#upload-user-document" class="toc-h2 toc-link" data-title="Upload User Document">Upload User Document</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-user-document" class="toc-h2 toc-link" data-title="Retrieve User Document">Retrieve User Document</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -416,6 +422,7 @@ If succesfull, HTTP code 200 will be returned
    \"isActive\":\"true\", \
    \"promotionalConsent\":\"true\", \
    \"addresStreet\":\"1122 Ridgefield Dr.\", \
+   \"addresStreet2\":\"Apt. 22\", \
    \"addressCity\":\"Venice\", \
    \"addressPostalCode\":\"34210\", \
    \"addressState\":\"Ohio\", \
@@ -476,6 +483,10 @@ If succesfull, HTTP code 200 will be returned
 <tr>
 <td>addressStreet</td>
 <td>The street address of the user</td>
+</tr>
+<tr>
+<td>addressStreet2</td>
+<td>Second line for the address</td>
 </tr>
 <tr>
 <td>addressCity</td>
@@ -614,7 +625,7 @@ If succesfull, HTTP code 200 will be returned
 <td>The ID of the user to delete</td>
 </tr>
 </tbody></table>
-<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://card.api.bitcoin.com/v1/1/virtual-card<span class="sb">`</span>
+<h2 id='get-user-39-s-virtual-card'>Get User&#39;s Virtual Card</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl https://card.api.bitcoin.com/v1/virtual-card<span class="sb">`</span>
 </code></pre>
 <p>This endpoint retrieves a specific user&#39;s virtual card, such as this: </p>
 
@@ -626,7 +637,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-6'>HTTP Request</h3>
-<p><code>GET https://card.api.bitcoin.com/v1/&lt;ID&gt;/virtual-card</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/virtual-card</code></p>
 <h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -644,6 +655,60 @@ If succesfull, HTTP code 200 will be returned
 <p>This endpoint retrieves user transactions. Currently it is getting data from card provider (Ternio) user ledger transactions, however, this will be expanded to card transactions too. Eventually, this endpoint will get transactions from both card providers and allow several types of transactions to be retrieved. </p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/transactions</code></p>
+<h2 id='upload-user-document'>Upload User Document</h2>
+<p>Endpoint to upload user documents. Currently we accept documents in 3 formats: PDF, JPG and PNG.</p>
+<pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://card.api.bitcoin.com/v1/users/upload-document'</span> <span class="se">\</span>
+--header <span class="s1">'Content-Type: multipart/form-data; boundary=--------------------------548324088818205658029465'</span> <span class="se">\</span>
+--form <span class="s1">'file=@/C:/projects/card.jpg'</span> <span class="se">\</span>
+--form <span class="s1">'id=31'</span> <span class="se">\</span>
+--form <span class="s1">'documenttype=PASSPORT'</span>
+</code></pre>
+<p>This endpoint deletes a specific user.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>POST https://card.api.bitcoin.com/v1/users/upload-document</code></p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>file</td>
+<td>The file object to upload. Only accepted file types are PDF, JPG and PNG</td>
+</tr>
+<tr>
+<td>id</td>
+<td>ID of the user whith which the file is associated</td>
+</tr>
+<tr>
+<td>documenttype</td>
+<td>Type of the file being uploaded</td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-user-document'>Retrieve User Document</h2>
+<p>Endpoint to upload user documents. Currently we accept documents in 3 formats: PDF, JPG and PNG.</p>
+<pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://card.api.bitcoin.com/v1/users/&lt;id&gt;/user-document/DRIVERSLICENSE'</span>
+</code></pre>
+<p>This endpoint deletes a specific user.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST https://card.api.bitcoin.com/v1/users/&lt;id&gt;/user-document/DRIVERSLICENSE</code></p>
+<h3 id='url-parameters-7'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>ID of the user whith which the file is associated</td>
+</tr>
+<tr>
+<td>documenttype</td>
+<td>Type of the file being downloaded</td>
+</tr>
+</tbody></table>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
