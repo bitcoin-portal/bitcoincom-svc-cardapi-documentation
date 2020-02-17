@@ -242,13 +242,11 @@
                   <li>
                     <a href="#header-parameters" class="toc-h2 toc-link" data-title="Header Parameters">Header Parameters</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
-              <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-users" class="toc-h2 toc-link" data-title="Get All Users">Get All Users</a>
+                    <a href="#authenticate-user" class="toc-h2 toc-link" data-title="Authenticate User">Authenticate User</a>
+                  </li>
+                  <li>
+                    <a href="#verify-authorization-code-for-user" class="toc-h2 toc-link" data-title="Verify Authorization Code for User">Verify Authorization Code for User</a>
                   </li>
                   <li>
                     <a href="#get-a-specific-user" class="toc-h2 toc-link" data-title="Get a Specific User">Get a Specific User</a>
@@ -322,9 +320,35 @@
 <h1 id='authentication'>Authentication</h1>
 <p>All communication with Card API is done over HTTPS protocol. We provide user with the certificate after which user can connect to the API. </p>
 
-<p>In order for any client to access Card API endpoints, valid access token has to be obtained from AWS Cognito. Token can be obtained for any user created in Cognito, however scope of the token has to have &#39;openid&#39; and &#39;profile&#39; in order to be parsed and verified by the Card API. 
-After decoding the token and doing in code validation, Cognito endpoint <b>/oauth2/userInfo</b> will be called with the token for additional validation. If token is invalid, user has globally logged out, or token was never issued by Cognito, endpoint will not return user data and Card API will return <b>401</b> code and <b>&#39;Unauthorized&#39;</b> message.</p>
+<p>In order for any client to access Card API endpoints, valid access token has to be obtained from AWS Cognito. Token can be obtained for any user created in Cognito, however scope of the token has to have &#39;openid&#39; and &#39;profile&#39; in order to be parsed and verified by the Card API. </p>
+
+<p>For any Card and front end user, valid token should be first obtained which will be used for all subsequent requests. If another application is making admin calls, such as creating user or deleting user, token should be obtained by first calling /login endpoint with valid credentials for admin user &quot;cognito_admin&quot;. </p>
+
+<p>If token is invalid, user has globally logged out, or token was never issued by Cognito, Card API will return <b>401</b> code and <b>&#39;Unauthorized&#39;</b> message.</p>
 <h3 id='header-parameters'>Header Parameters</h3>
+<p>--------- | -----------
+Authorization | Used to pass token value in the format <b>Bearer (token value)</b></p>
+<h2 id='authenticate-user'>Authenticate User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/login<span class="sb">`</span>
+</code></pre>
+<blockquote>
+<p>The above command returns Cognito token like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"eyJraWQiOiI1T3U5TGJNMEU1aXJwdDZud3F0WTVZUWFJK0JuMXZZWVZCbVJkVE1GUmNFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkYzBlYzk1ZC1kZDQ1LTQzYTgtYmE3Zi02MTk5NWM5N2QwZmMiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIiwiYXV0aF90aW1lIjoxNTgxMzkzOTgwLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9MeGdGd0FOQXIiLCJleHAiOjE1ODEzOTc1ODAsImlhdCI6MTU4MTM5Mzk4MCwidmVyc2lvbiI6MiwianRpIjoiMzRmYTA5YmEtNGJiYS00YmEwLWJjMjktYzQ2ZmQ2YTkwZGIzIiwiY2xpZW50X2lkIjoiN29ka2hpOHQ5dmc0cnRlZmNwNmd2aDZiMG0iLCJ1c2VybmFtZSI6InRlc3RfdXNlcjEifQ.rv-SiBXjkIGYEC-5GDZRJ3_A9xxCWxjMqR8wtAm7gyD0HIAf3joqRyzmfOg_wBByu0_V8sp5WMTfcvME3DghhivxDDUmZjLOcog8s06g6NcpWTgta-fozUBa6ilHC9ioedfPEcYcLTcD2leNinjf0dONpZJOzd6wZR2oYPeXkPJlwNqwvY5UkTXAX1kupiXJ53o-7Lfvn_mF6BjazvjUdlbcYwSgXnol41jW2htiYYYUjQWVx4Wr61uc1WQY0Vv5GVeJ8bjr1oo8iLD7bXP6DAmzIhqrikVtWtZ6pcOHBKa3BLR4Iz7-1fd3KDfqyyCTiT3gVrxutBI9FCfT1iwexw"</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Endpoint to login the user. Must be a valid, already created Cognito user. </p>
+
+<aside class="success">
+If succesfull, HTTP code 200 will be returned
+</aside>
+
+<aside class="warning">If user is not authorized, HTTP code 401 will be returned.</aside>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://card.api.bitcoin.com/v1/login</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -332,12 +356,49 @@ After decoding the token and doing in code validation, Cognito endpoint <b>/oaut
 </tr>
 </thead><tbody>
 <tr>
-<td>Authorization</td>
-<td>Used to pass token value in the format <b>Bearer (token value)</b></td>
+<td>username</td>
+<td>User name of the user to login</td>
+</tr>
+<tr>
+<td>password</td>
+<td>Password of the user to login</td>
 </tr>
 </tbody></table>
-<h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://card.api.bitcoin.com/v1/users"</span>
+<h2 id='verify-authorization-code-for-user'>Verify Authorization Code for User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/verify<span class="sb">`</span>
 </code></pre>
+<blockquote>
+<p>The above command returns Cognito token like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">Endpoint</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">verify</span><span class="w"> </span><span class="err">authorization</span><span class="w"> </span><span class="err">code</span><span class="w"> </span><span class="err">sent</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">user's</span><span class="w"> </span><span class="err">email.</span><span class="w"> </span><span class="err">Must</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">valid</span><span class="p">,</span><span class="w"> </span><span class="err">already</span><span class="w"> </span><span class="err">created</span><span class="w"> </span><span class="err">Cognito</span><span class="w"> </span><span class="err">user.</span><span class="w">
+
+</span><span class="err">&lt;aside</span><span class="w"> </span><span class="err">class=</span><span class="s2">"success"</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">If</span><span class="w"> </span><span class="err">succesfull</span><span class="p">,</span><span class="w"> </span><span class="err">HTTP</span><span class="w"> </span><span class="err">code</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">returned</span><span class="w">
+</span><span class="err">&lt;/aside&gt;</span><span class="w">
+</span><span class="err">&lt;aside</span><span class="w"> </span><span class="err">class=</span><span class="s2">"warning"</span><span class="err">&gt;If</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">authorized</span><span class="p">,</span><span class="w"> </span><span class="err">HTTP</span><span class="w"> </span><span class="err">code</span><span class="w"> </span><span class="mi">401</span><span class="w"> </span><span class="err">will</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">returned.&lt;/aside&gt;</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">HTTP</span><span class="w"> </span><span class="err">Request</span><span class="w">
+
+</span><span class="err">`POST</span><span class="w"> </span><span class="err">https</span><span class="p">:</span><span class="err">//card.api.bitcoin.com/v</span><span class="mi">1</span><span class="err">/login`</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">URL</span><span class="w"> </span><span class="err">Parameters</span><span class="w">
+
+</span><span class="err">Parameter</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">Description</span><span class="w">
+</span><span class="err">---------</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">-----------</span><span class="w">
+</span><span class="err">username</span><span class="w">  </span><span class="err">|</span><span class="w"> </span><span class="err">User</span><span class="w"> </span><span class="err">name</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">login</span><span class="w">
+</span><span class="err">code|</span><span class="w"> </span><span class="err">User</span><span class="w"> </span><span class="err">code</span><span class="w"> </span><span class="err">sent</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">email</span><span class="w"> 
+
+
+</span><span class="err">#</span><span class="w"> </span><span class="err">Users</span><span class="w">
+
+</span><span class="err">##</span><span class="w"> </span><span class="err">Get</span><span class="w"> </span><span class="err">All</span><span class="w"> </span><span class="err">Users</span><span class="w">
+
+</span><span class="err">```shell</span><span class="w">
+</span><span class="err">curl</span><span class="w"> </span><span class="s2">"https://card.api.bitcoin.com/v1/users"</span><span class="w">
+</span></code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
@@ -351,7 +412,7 @@ After decoding the token and doing in code validation, Cognito endpoint <b>/oaut
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>COMING SOON - This endpoint retrieves all users.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/users</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <aside class="success">
@@ -391,9 +452,9 @@ If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/users/search?username=mduric</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -432,16 +493,16 @@ If succesfull, HTTP code 200 will be returned
    \"userName\":\"mduric\" \
    }"'</span>
 </code></pre>
-<p>This endpoint creates new user.</p>
+<p>This endpoint creates new user in Posgres and Cognito. Cognito requires valid phone format such as +1888222333. Postgres requires unique email and and username. Calling application first needs to get token from Cognito by using user cognito_admin to login. Use that token to make these admin requests. </p>
 
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/users</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -532,9 +593,9 @@ If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>PUT https://card.api.bitcoin.com/v1/users</code></p>
-<h3 id='url-parameters-3'>URL Parameters</h3>
+<h3 id='url-parameters-4'>URL Parameters</h3>
 <p>Any of the available parameters can be sent for updating.</p>
 
 <table><thead>
@@ -611,9 +672,9 @@ If succesfull, HTTP code 200 will be returned
 <h2 id='delete-a-specific-user'>Delete a Specific User</h2><pre class="highlight shell tab-shell"><code>curl -v -X DELETE https://card.api.bitcoin.com/v1/users/5 
 </code></pre>
 <p>This endpoint deletes a specific user.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>DELETE https://card.api.bitcoin.com/v1/users/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='url-parameters-5'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -636,9 +697,9 @@ If succesfull, HTTP code 200 will be returned
 </aside>
 
 <aside class="warning">If user is not found, HTTP code 404 will be returned.</aside>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/virtual-card</code></p>
-<h3 id='url-parameters-5'>URL Parameters</h3>
+<h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -653,7 +714,7 @@ If succesfull, HTTP code 200 will be returned
 <h2 id='get-user-transactions'>Get User Transactions</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://card.api.bitcoin.com/v1/transactions
 </code></pre>
 <p>This endpoint retrieves user transactions. Currently it is getting data from card provider (Ternio) user ledger transactions, however, this will be expanded to card transactions too. Eventually, this endpoint will get transactions from both card providers and allow several types of transactions to be retrieved. </p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/transactions</code></p>
 <h2 id='upload-user-document'>Upload User Document</h2>
 <p>Endpoint to upload user documents. Currently we accept documents in 3 formats: PDF, JPG and PNG.</p>
@@ -664,9 +725,9 @@ If succesfull, HTTP code 200 will be returned
 --form <span class="s1">'documenttype=PASSPORT'</span>
 </code></pre>
 <p>This endpoint deletes a specific user.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST https://card.api.bitcoin.com/v1/users/upload-document</code></p>
-<h3 id='url-parameters-6'>URL Parameters</h3>
+<h3 id='url-parameters-7'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -691,9 +752,9 @@ If succesfull, HTTP code 200 will be returned
 <pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://card.api.bitcoin.com/v1/users/&lt;id&gt;/user-document/DRIVERSLICENSE'</span>
 </code></pre>
 <p>This endpoint deletes a specific user.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>POST https://card.api.bitcoin.com/v1/users/&lt;id&gt;/user-document/DRIVERSLICENSE</code></p>
-<h3 id='url-parameters-7'>URL Parameters</h3>
+<h3 id='url-parameters-8'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
