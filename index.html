@@ -238,9 +238,6 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#header-parameters" class="toc-h1 toc-link" data-title="Header Parameters">Header Parameters</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#authenticate-user" class="toc-h2 toc-link" data-title="Authenticate User">Authenticate User</a>
@@ -333,8 +330,10 @@
 <p>For any Card and front end user, valid token should be first obtained which will be used for all subsequent requests. If another application is making admin calls, such as creating user or deleting user, token should be obtained by first calling /login endpoint with valid credentials for admin user &quot;cognito_admin&quot;. </p>
 
 <p>If token is invalid, user has globally logged out, or token was never issued by Cognito, Card API will return <b>401</b> code and <b>&#39;Unauthorized&#39;</b> message.</p>
-<h1 id='header-parameters'>Header Parameters</h1>
-<p>--------- | -----------
+
+<p>Header Parameters
+Parameter   Description
+--------- | -----------
 Authorization | Used to pass token value in the format <b>Bearer (token value)</b></p>
 <h2 id='authenticate-user'>Authenticate User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/login<span class="sb">`</span>
 </code></pre>
@@ -345,7 +344,6 @@ Authorization | Used to pass token value in the format <b>Bearer (token value)</
    </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"eyJraWQiOiI1T3U5TGJNMEU1aXJwdDZud3F0WTVZUWFJK0JuMXZZWVZCbVJkVE1GUmNFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkYzBlYzk1ZC1kZDQ1LTQzYTgtYmE3Zi02MTk5NWM5N2QwZmMiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIiwiYXV0aF90aW1lIjoxNTgxMzkzOTgwLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9MeGdGd0FOQXIiLCJleHAiOjE1ODEzOTc1ODAsImlhdCI6MTU4MTM5Mzk4MCwidmVyc2lvbiI6MiwianRpIjoiMzRmYTA5YmEtNGJiYS00YmEwLWJjMjktYzQ2ZmQ2YTkwZGIzIiwiY2xpZW50X2lkIjoiN29ka2hpOHQ5dmc0cnRlZmNwNmd2aDZiMG0iLCJ1c2VybmFtZSI6InRlc3RfdXNlcjEifQ.rv-SiBXjkIGYEC-5GDZRJ3_A9xxCWxjMqR8wtAm7gyD0HIAf3joqRyzmfOg_wBByu0_V8sp5WMTfcvME3DghhivxDDUmZjLOcog8s06g6NcpWTgta-fozUBa6ilHC9ioedfPEcYcLTcD2leNinjf0dONpZJOzd6wZR2oYPeXkPJlwNqwvY5UkTXAX1kupiXJ53o-7Lfvn_mF6BjazvjUdlbcYwSgXnol41jW2htiYYYUjQWVx4Wr61uc1WQY0Vv5GVeJ8bjr1oo8iLD7bXP6DAmzIhqrikVtWtZ6pcOHBKa3BLR4Iz7-1fd3KDfqyyCTiT3gVrxutBI9FCfT1iwexw"</span><span class="w">
 
 </span><span class="p">}</span><span class="w">
-
 </span></code></pre>
 <p>Endpoint to login the user. Must be a valid, already created Cognito user. </p>
 
