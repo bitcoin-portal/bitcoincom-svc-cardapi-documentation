@@ -240,6 +240,9 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#header-parameters" class="toc-h2 toc-link" data-title="Header Parameters">Header Parameters</a>
+                  </li>
+                  <li>
                     <a href="#authenticate-user" class="toc-h2 toc-link" data-title="Authenticate User">Authenticate User</a>
                   </li>
                   <li>
@@ -330,11 +333,18 @@
 <p>For any Card and front end user, valid token should be first obtained which will be used for all subsequent requests. If another application is making admin calls, such as creating user or deleting user, token should be obtained by first calling /login endpoint with valid credentials for admin user &quot;cognito_admin&quot;. </p>
 
 <p>If token is invalid, user has globally logged out, or token was never issued by Cognito, Card API will return <b>401</b> code and <b>&#39;Unauthorized&#39;</b> message.</p>
-
-<p>Header Parameters
-Parameter   Description
---------- | -----------
-Authorization | Used to pass token value in the format <b>Bearer (token value)</b></p>
+<h3 id='header-parameters'>Header Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Authorization</td>
+<td>Used to pass token value in the format <b>Bearer (token value)</b></td>
+</tr>
+</tbody></table>
 <h2 id='authenticate-user'>Authenticate User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/login<span class="sb">`</span>
 </code></pre>
 <blockquote>
