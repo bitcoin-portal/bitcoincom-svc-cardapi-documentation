@@ -391,13 +391,6 @@ If succesfull, HTTP code 200 will be returned
 </tbody></table>
 <h2 id='verify-authorization-code-for-user'>Verify Authorization Code for User</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/verify<span class="sb">`</span>
 </code></pre>
-<blockquote>
-<p>The above command returns Cognito token like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
 <p>Endpoint to verify authorization code sent to user&#39;s email. Must be a valid, already created Cognito user.</p>
 
 <aside class="success">
@@ -425,13 +418,6 @@ If succesfull, HTTP code 200 will be returned
 </tbody></table>
 <h2 id='reset-password'>Reset Password</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/reset-password/me<span class="sb">`</span>
 </code></pre>
-<blockquote>
-<p>The above command returns Cognito token like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-        </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
 <p>Endpoint to reset user&#39;s password. This endpoint will send email with reset password code which should be used to reset password on next call. </p>
 
 <aside class="success">
@@ -443,13 +429,6 @@ If succesfull, HTTP code 200 will be returned
 <p><code>POST https://card.api.bitcoin.com/v1/reset-password/me</code></p>
 <h2 id='update-password'>Update Password</h2><pre class="highlight shell tab-shell"><code><span class="sb">`</span>curl -v -X POST https://card.api.bitcoin.com/v1/update-password/me<span class="sb">`</span>
 </code></pre>
-<blockquote>
-<p>The above command returns Cognito token like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-        </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
 <p>Endpoint to update user&#39;s password by passing code received in email. </p>
 
 <aside class="success">
