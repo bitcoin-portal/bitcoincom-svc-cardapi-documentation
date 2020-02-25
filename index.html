@@ -751,7 +751,7 @@ If succesfull, HTTP code 200 will be returned
 <p><code>GET https://card.api.bitcoin.com/v1/transactions</code></p>
 <h2 id='upload-user-document'>Upload User Document</h2>
 <p>Endpoint to upload user documents. Currently we accept documents in 3 formats: PDF, JPG and PNG.</p>
-<pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://card.api.bitcoin.com/v1/users/files'</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl --location --request POST <span class="s1">'https://card.api.bitcoin.com/v1/files'</span> <span class="se">\</span>
 --header <span class="s1">'Content-Type: multipart/form-data; boundary=--------------------------548324088818205658029465'</span> <span class="se">\</span>
 --form <span class="s1">'file=@/C:/projects/card.jpg'</span> <span class="se">\</span>
 --form <span class="s1">'type=PASSPORT'</span>
@@ -764,7 +764,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If not allowed, HTTP code 400 will be returned.</aside>
 <h3 id='http-request-12'>HTTP Request</h3>
-<p><code>POST https://card.api.bitcoin.com/v1/users/files</code></p>
+<p><code>POST https://card.api.bitcoin.com/v1/files</code></p>
 <h3 id='url-parameters-9'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -783,7 +783,7 @@ If succesfull, HTTP code 200 will be returned
 </tbody></table>
 <h2 id='retrieve-all-user-document'>Retrieve All User Document</h2>
 <p>Endpoint to retrieve all user documents. File id retrieved will be used to make additional call to that file object. </p>
-<pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://card.api.bitcoin.com/v1/users/files'</span>
+<pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://card.api.bitcoin.com/v1/files'</span>
 </code></pre>
 <p>This endpoint retrieves user file.</p>
 
@@ -793,10 +793,10 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If not allowed, HTTP code 400 will be returned.</aside>
 <h3 id='http-request-13'>HTTP Request</h3>
-<p><code>GET https://card.api.bitcoin.com/v1/users/files</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/files</code></p>
 <h2 id='retrieve-user-document'>Retrieve User Document</h2>
 <p>Endpoint to download user documents, by passing file id retrieved in call which retrieved all user files. </p>
-<pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://card.api.bitcoin.com/v1/users/files/&lt;fileId&gt;'</span>
+<pre class="highlight shell tab-shell"><code>curl --location --request GET <span class="s1">'https://card.api.bitcoin.com/v1/files/&lt;fileId&gt;'</span>
 </code></pre>
 <p>This endpoint retrieves user file.</p>
 
@@ -806,7 +806,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If not found, HTTP code 404 will be returned.</aside>
 <h3 id='http-request-14'>HTTP Request</h3>
-<p><code>GET https://card.api.bitcoin.com/v1/users/files/&lt;fileId&gt;</code></p>
+<p><code>GET https://card.api.bitcoin.com/v1/files/&lt;fileId&gt;</code></p>
 <h3 id='url-parameters-10'>URL Parameters</h3>
 <table><thead>
 <tr>
