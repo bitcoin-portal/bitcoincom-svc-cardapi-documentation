@@ -495,12 +495,17 @@ If succesfull, HTTP code 200 will be returned
    </span><span class="s2">"addressCity"</span><span class="p">:</span><span class="s2">"Richmond"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"addressPostalCode"</span><span class="p">:</span><span class="s2">"23233"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"addressState"</span><span class="p">:</span><span class="s2">"Va"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"addressCountry"</span><span class="p">:</span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"defaultCurrencyId"</span><span class="p">:</span><span class="s2">"BCH"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"socialSecurityNumber"</span><span class="p">:</span><span class="s2">"888-00-8888"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w"> 
-   </span><span class="s2">"username"</span><span class="p">:</span><span class="s2">"mduric"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+   </span><span class="s2">"shippingAddresStreet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2208 Flat Branch Ct."</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"shippingAddressCity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Richmond"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"shippingAddressPostalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23233"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"shippingAddressState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Va"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"shippingAddressCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"shippingAddresStreet2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apt 2"</span><span class="p">,</span><span class="err">addressCountry</span><span class="s2">":"</span><span class="err">USA</span><span class="s2">",
+   "</span><span class="err">defaultCurrencyId</span><span class="s2">":"</span><span class="err">BCH</span><span class="s2">",
+   "</span><span class="err">socialSecurityNumber</span><span class="s2">":"</span><span class="mi">888-00-8888</span><span class="s2">",
+   "</span><span class="err">active</span><span class="s2">":true, 
+   "</span><span class="err">username</span><span class="s2">":"</span><span class="err">mduric</span><span class="s2">"
+}
 </span></code></pre>
 <p>This endpoint retrieves a specific user.</p>
 
@@ -606,6 +611,30 @@ If succesfull, HTTP code 200 will be returned
 </tr>
 <tr>
 <td>addressCountry</td>
+<td>The country of the user</td>
+</tr>
+<tr>
+<td>shippingAddressStreet</td>
+<td>The street address of the user</td>
+</tr>
+<tr>
+<td>shippingAddressStreet2</td>
+<td>Second line for the address</td>
+</tr>
+<tr>
+<td>shippingAddressCity</td>
+<td>The city of the user</td>
+</tr>
+<tr>
+<td>shippingAddressPostalCode</td>
+<td>The postal code of the user</td>
+</tr>
+<tr>
+<td>shippingAddressState</td>
+<td>The state of the user</td>
+</tr>
+<tr>
+<td>shippingAddressCountry</td>
 <td>The country of the user</td>
 </tr>
 <tr>
