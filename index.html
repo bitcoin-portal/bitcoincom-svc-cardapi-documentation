@@ -500,12 +500,13 @@ If succesfull, HTTP code 200 will be returned
    </span><span class="s2">"shippingAddressPostalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"23233"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"shippingAddressState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Va"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"shippingAddressCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"shippingAddresStreet2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apt 2"</span><span class="p">,</span><span class="err">addressCountry</span><span class="s2">":"</span><span class="err">USA</span><span class="s2">",
-   "</span><span class="err">defaultCurrencyId</span><span class="s2">":"</span><span class="err">BCH</span><span class="s2">",
-   "</span><span class="err">socialSecurityNumber</span><span class="s2">":"</span><span class="mi">888-00-8888</span><span class="s2">",
-   "</span><span class="err">active</span><span class="s2">":true, 
-   "</span><span class="err">username</span><span class="s2">":"</span><span class="err">mduric</span><span class="s2">"
-}
+   </span><span class="s2">"shippingAddresStreet2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apt 2"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"shippingAddressCountry"</span><span class="p">:</span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"defaultCurrencyId"</span><span class="p">:</span><span class="s2">"BCH"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"socialSecurityNumber"</span><span class="p">:</span><span class="s2">"888-00-8888"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w"> 
+   </span><span class="s2">"username"</span><span class="p">:</span><span class="s2">"mduric"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves a specific user.</p>
 
@@ -541,7 +542,7 @@ If succesfull, HTTP code 200 will be returned
    \"userName\":\"mduric\" \
    }"'</span>
 </code></pre>
-<p>This endpoint creates new user in Posgres and Cognito. Cognito requires valid phone format such as +1888222333. Postgres requires unique email and and username. Calling application first needs to get token from Cognito by using user cognito_admin to login. Use that token to make these admin requests. </p>
+<p>This endpoint creates new user in Posgres and Cognito. Postgres requires unique email and and username. Calling application first needs to get token from Cognito by using user cognito_admin to login. Use that token to make these admin requests. </p>
 
 <aside class="success">
 If succesfull, HTTP code 200 will be returned
