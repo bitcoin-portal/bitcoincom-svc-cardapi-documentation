@@ -566,8 +566,9 @@ If succesfull, HTTP code 200 will be returned
    \"addressState\":\"Ohio\", \
    \"addressCountry\":\"US\", \
    \"defaultCurrencyId\":\"BCH\", \
-   \"socialSecurityNumber\":\"223-23-2323\" \
-   \"userName\":\"mduric\" \
+   \"socialSecurityNumber\":\"223-23-2323\", \
+   \"userName\":\"mduric\", \
+   \"password\":\"test123\" \
    }"'</span>
 </code></pre>
 <p>This endpoint creates new user in Posgres and Cognito. Postgres requires unique email and and username. Cognito requires unique username.  </p>
@@ -677,6 +678,10 @@ If succesfull, HTTP code 200 will be returned
 <tr>
 <td>userName</td>
 <td>The user name of the user</td>
+</tr>
+<tr>
+<td>password</td>
+<td>The password for the created user</td>
 </tr>
 </tbody></table>
 <h2 id='update-user'>Update User</h2><pre class="highlight shell tab-shell"><code>curl -v -X PUT https://card.api.bitcoin.com/v1/users <span class="se">\</span>
