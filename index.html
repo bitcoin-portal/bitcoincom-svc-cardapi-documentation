@@ -567,7 +567,7 @@ If succesfull, HTTP code 200 will be returned
    \"addressCountry\":\"US\", \
    \"defaultCurrencyId\":\"BCH\", \
    \"socialSecurityNumber\":\"223-23-2323\", \
-   \"userName\":\"mduric\", \
+   \"username\":\"mduric\", \
    \"password\":\"test123\" \
    }"'</span>
 </code></pre>
@@ -579,7 +579,7 @@ If succesfull, HTTP code 200 will be returned
 
 <aside class="warning">If error, HTTP code 400 (bad request) will be returned.</aside>
 <h3 id='http-request-8'>HTTP Request</h3>
-<p><code>GET https://card.api.bitcoin.com/v1/users</code></p>
+<p><code>POST https://card.api.bitcoin.com/v1/users</code></p>
 <h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -676,7 +676,7 @@ If succesfull, HTTP code 200 will be returned
 <td>The SSN of the user</td>
 </tr>
 <tr>
-<td>userName</td>
+<td>username</td>
 <td>The user name of the user</td>
 </tr>
 <tr>
