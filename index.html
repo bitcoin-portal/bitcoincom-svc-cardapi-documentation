@@ -796,17 +796,7 @@ If succesfull, HTTP code 200 will be returned
 <h3 id='http-request-11'>HTTP Request</h3>
 <p><code>GET https://card.api.bitcoin.com/v1/virtual-card</code></p>
 <h3 id='url-parameters-9'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the user to retrieve</td>
-</tr>
-</tbody></table>
+<p>No parameters passed. Image is retrieved using id from user token.</p>
 <h2 id='get-user-transactions'>Get User Transactions</h2><pre class="highlight shell tab-shell"><code>curl -v -X GET https://card.api.bitcoin.com/v1/transactions
 </code></pre>
 <p>This endpoint retrieves user transactions. Currently it is getting data from card provider (Ternio) user ledger transactions, however, this will be expanded to card transactions too. Eventually, this endpoint will get transactions from both card providers and allow several types of transactions to be retrieved. </p>
